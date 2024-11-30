@@ -1,7 +1,7 @@
+import { setupSequelize } from '../../../../../shared/infra/testing/helpers';
+import { CategorySequelizeRepository } from '../../../../infra/db/sequelize/category-sequelize.repository';
+import { CategoryModel } from '../../../../infra/db/sequelize/category.model';
 import { CreateCategoryUseCase } from '../create-category.use-case';
-import {CategorySequelizeRepository} from "../../../../infra/db/sequelize/category-sequelize.repository";
-import {CategoryModel} from "../../../../infra/db/sequelize/category.model";
-import {setupSequelize} from "../../../../../shared/infra/testing/helpers";
 import {Uuid} from "../../../../../shared/domain/value-objects/uuid.vo";
 
 describe('CreateCategoryUseCase Integration Tests', () => {

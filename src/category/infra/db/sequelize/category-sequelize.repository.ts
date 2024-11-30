@@ -8,7 +8,7 @@ import {
 import { CategoryModel } from './category.model';
 import { SortDirection } from '../../../../shared/domain/repository/search-params';
 import { InvalidArgumentError } from '../../../../shared/domain/errors/invalid-argument.error';
-import {CategoryModelMapper} from "./category-mapper";
+import {CategoryModelMapper} from "./category-model-mapper";
 import {Category} from "../../../domain/category.entity";
 import {Uuid} from "../../../../shared/domain/value-objects/uuid.vo";
 

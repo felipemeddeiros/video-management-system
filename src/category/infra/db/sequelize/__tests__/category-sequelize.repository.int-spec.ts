@@ -6,7 +6,7 @@ import {
     CategorySearchResult,
 } from '../../../../domain/category.repository';
 import {Category} from "../../../../domain/category.entity";
-import {CategoryModelMapper} from "../category-mapper";
+import {CategoryModelMapper} from "../category-model-mapper";
 import {Uuid} from "../../../../../shared/domain/value-objects/uuid.vo";
 import { setupSequelize } from '../../../../../shared/infra/testing/helpers';
 

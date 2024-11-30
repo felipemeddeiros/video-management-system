@@ -1,4 +1,4 @@
-// import { LoadEntityError } from '../../../../shared/domain/validators/validation.error';
+import {EntityValidationError} from '../../../../shared/domain/validators/validation.error';
 import { CategoryModel } from './category.model';
 import {Category} from "../../../domain/category.entity";
 import {Uuid} from "../../../../shared/domain/value-objects/uuid.vo";
@@ -23,10 +23,10 @@ export class CategoryModelMapper {
             created_at: model.created_at,
         });
 
-        // category.validate();
-        // if (category.notification.hasErrors()) {
-        //     throw new LoadEntityError(category.notification.toJSON());
-        // }
+        category.validate();
+        if (category.notification.hasErrors()) {
+            throw new EntityValidationError(category.notification.toJSON());
+        }
         return category;
     }
 }
