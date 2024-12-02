@@ -3,7 +3,7 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import {CategorySequelizeRepository} from "@core/category/infra/db/sequelize/category-sequelize.repository";
 
-@Controller('categories')
+@Controller('categories-module')
 export class CategoriesController {
 
   constructor(private categoryRepo: CategorySequelizeRepository) {
