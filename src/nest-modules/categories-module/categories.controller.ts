@@ -1,13 +1,27 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, Inject} from '@nestjs/common';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post, Query
+} from '@nestjs/common';
+import {CreateCategoryDto} from './dto/create-category.dto';
+import {UpdateCategoryDto} from './dto/update-category.dto';
 import {CreateCategoryUseCase} from "@core/category/application/use-cases/create-category/create-category.use-case";
 import {UpdateCategoryUseCase} from "@core/category/application/use-cases/update-category/update-category.use-case";
 import {DeleteCategoryUseCase} from "@core/category/application/use-cases/delete-category/delete-category.use-case";
 import {GetCategoryUseCase} from "@core/category/application/use-cases/get-category/get-category.use-case";
 import {ListCategoriesUseCase} from "@core/category/application/use-cases/list-categories/list-categories.use-case";
-import {CategoryPresenter} from "./categories.presenter";
+import {CategoryCollectionPresenter, CategoryPresenter} from "./categories.presenter";
 import {CategoryOutput} from "@core/category/application/use-cases/common/category-output";
+import {SearchCategoriesDto} from "./dto/search-categories.dto";
+import {CollectionPresenter} from "../shared-module/collection.presenter";
 
 @Controller('categories-module')
 export class CategoriesController {
@@ -33,23 +47,46 @@ export class CategoriesController {
   }
 
   @Get()
-  findAll() {
-
+  async search(@Query() searchParamsDto: SearchCategoriesDto) {
+    const output = await this.listUseCase.execute(searchParamsDto);
+    return new CategoryCollectionPresenter(output);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-
+  async findOne(
+      @Param(
+          'id',
+          new ParseUUIDPipe({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY })
+      ) id: string
+  ) {
+    const output = await this.getUseCase.execute({ id });
+    return CategoriesController.serialize(output);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-
+  async update(
+      @Param(
+          'id',
+          new ParseUUIDPipe({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY })
+      ) id: string,
+      @Body() updateCategoryDto: UpdateCategoryDto
+  ) {
+    const output = await this.updateUseCase.execute({
+      ...updateCategoryDto,
+      id
+    });
+    return CategoriesController.serialize(output);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-
+  remove(
+      @Param(
+          'id',
+          new ParseUUIDPipe({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY })
+      ) id: string
+  ) {
+    return this.deleteUseCase.execute({ id })
   }
 
   static serialize(output: CategoryOutput) {

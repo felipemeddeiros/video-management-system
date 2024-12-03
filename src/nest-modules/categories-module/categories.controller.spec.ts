@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesController } from './categories.controller';
 import {CategoriesModule} from "./categories.module";
-import {DatabaseModule} from "../database-modules/database.module";
-import {ConfigModule} from "../config-modules/config.module";
+import {DatabaseModule} from "../database-module/database.module";
+import {ConfigModule} from "../config-module/config.module";
 import {join} from "path";
 
 describe('CategoriesController', () => {
