@@ -21,9 +21,8 @@ import {ListCategoriesUseCase} from "@core/category/application/use-cases/list-c
 import {CategoryCollectionPresenter, CategoryPresenter} from "./categories.presenter";
 import {CategoryOutput} from "@core/category/application/use-cases/common/category-output";
 import {SearchCategoriesDto} from "./dto/search-categories.dto";
-import {CollectionPresenter} from "../shared-module/collection.presenter";
 
-@Controller('categories-module')
+@Controller('categories')
 export class CategoriesController {
   @Inject(CreateCategoryUseCase)
   private createUseCase: CreateCategoryUseCase;
