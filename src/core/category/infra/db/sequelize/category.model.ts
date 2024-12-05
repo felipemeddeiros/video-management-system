@@ -14,7 +14,7 @@ export type CategoryModelProps = {
     created_at: Date;
 };
 
-@Table({ tableName: 'categories-module', timestamps: false })
+@Table({ tableName: 'categories', timestamps: false })
 export class CategoryModel extends Model<CategoryModelProps> {
     @PrimaryKey
     @Column({ type: DataType.UUID })
